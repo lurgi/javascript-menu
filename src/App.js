@@ -14,18 +14,37 @@ class App {
   #coachs = [];
 
   async play() {
-    await this.#handleCoach();
+    await this.handleCoach();
     // 각 코치들이 못먹는 음식을 입력 받는다
+    await this.handleDontEatFood();
     // 각 코치별로 메뉴를 할당한다
     // 메뉴 추천 결과를 출력한다.
   }
 
-  async #handleCoach() {
+  async handleCoach() {
     const NAMES = await InputView.readCoachName();
-    // TODO this.validName(NAMES)
+    this.#validName(NAMES);
     NAMES.forEach((name) => {
       const COACH = new Coach(name);
       this.#coachs.push(COACH);
+    });
+  }
+
+  #validName(names) {
+    if (names.length !== new Set(names).size) {
+      throw new Error('[ERROR]');
+    }
+    names.forEach((name) => {
+      if (!name) {
+        throw new Error('[ERROR]');
+      }
+    });
+  }
+
+  async handleDontEatFood() {
+    this.#coachs.forEach(async (coach) => {
+      const FOODS = await InputView.readDontEat(coach.getName());
+      coach.setDontEat(FOODS);
     });
   }
 }
