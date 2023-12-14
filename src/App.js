@@ -1,3 +1,6 @@
+import Coach from './model/Coach';
+import InputView from './view/InputView';
+
 const SAMPLE = {
   일식: '규동, 우동, 미소시루, 스시, 가츠동, 오니기리, 하이라이스, 라멘, 오코노미야끼',
   한식: '김밥, 김치찌개, 쌈밥, 된장찌개, 비빔밥, 칼국수, 불고기, 떡볶이, 제육볶음',
@@ -8,11 +11,22 @@ const SAMPLE = {
 };
 
 class App {
+  #coachs = [];
+
   async play() {
-    // 코치 이름 입력을 받는다.
+    await this.#handleCoach();
     // 각 코치들이 못먹는 음식을 입력 받는다
     // 각 코치별로 메뉴를 할당한다
     // 메뉴 추천 결과를 출력한다.
+  }
+
+  async #handleCoach() {
+    const NAMES = await InputView.readCoachName();
+    // TODO this.validName(NAMES)
+    NAMES.forEach((name) => {
+      const COACH = new Coach(name);
+      this.#coachs.push(COACH);
+    });
   }
 }
 
