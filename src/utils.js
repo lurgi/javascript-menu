@@ -1,6 +1,6 @@
 import { MissionUtils } from '@woowacourse/mission-utils';
 
-const CATEGORY = Object.freeze({
+export const CATEGORY = Object.freeze({
   1: '일식',
   2: '한식',
   3: '중식',
@@ -10,15 +10,15 @@ const CATEGORY = Object.freeze({
 
 const FOODS = Object.freeze({
   일식: [
-    규동,
-    우동,
-    미소시루,
-    스시,
-    가츠동,
-    오니기리,
-    하이라이스,
-    라멘,
-    오코노미야끼,
+    '규동',
+    '우동',
+    '미소시루',
+    '스시',
+    '가츠동',
+    '오니기리',
+    '하이라이스',
+    '라멘',
+    '오코노미야끼',
   ],
   한식: [
     '김밥',
@@ -72,6 +72,7 @@ export function randomPickCategory() {
 
 export function randomFood(category) {
   const MENUS = FOODS[CATEGORY[category]];
-  const MENU = MissionUtils.Random.shuffle(MENUS)[0];
+  const INDEX = MissionUtils.Random.shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8])[0];
+  const MENU = MENUS[INDEX];
   return MENU;
 }

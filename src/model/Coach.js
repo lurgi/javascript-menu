@@ -8,7 +8,7 @@ class Coach {
 
   #dontEatfoods;
 
-  #eatMenus = { 1: [], 2: [], 3: [], 4: [], 5: [] };
+  #eatMenus = [];
 
   constructor(name) {
     this.#nameValid(name);
@@ -17,6 +17,10 @@ class Coach {
 
   getName() {
     return this.#name;
+  }
+
+  getMenu() {
+    return [...this.#eatMenus];
   }
 
   #nameValid(name) {
@@ -36,11 +40,11 @@ class Coach {
     }
   }
 
-  setEatFood(menu, category) {
-    if (this.#dontEatfoods.includes(menu)) return false;
-    if (this.#eatMenus[category].includes(menu)) return false;
+  setEatFood(menu) {
+    if (this.#dontEatfoods && this.#dontEatfoods.includes(menu)) return false;
+    if (this.#eatMenus.includes(menu)) return false;
 
-    this.#eatMenus[category].push(menu);
+    this.#eatMenus.push(menu);
     return true;
   }
 }
