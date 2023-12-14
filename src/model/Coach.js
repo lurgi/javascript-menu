@@ -8,6 +8,8 @@ class Coach {
 
   #dontEatfoods;
 
+  #eatMenus = { 1: [], 2: [], 3: [], 4: [], 5: [] };
+
   constructor(name) {
     this.#nameValid(name);
     this.#name = name;
@@ -32,6 +34,14 @@ class Coach {
     if (foods.length > 2) {
       throw new Error(ERORR_MESSAGES.foodValid);
     }
+  }
+
+  setEatFood(menu, category) {
+    if (this.#dontEatfoods.includes(menu)) return false;
+    if (this.#eatMenus[category].includes(menu)) return false;
+
+    this.#eatMenus[category].push(menu);
+    return true;
   }
 }
 
