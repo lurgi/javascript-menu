@@ -67,12 +67,13 @@ const FOODS = Object.freeze({
 });
 
 export function randomPickCategory() {
-  return MissionUtils.Random.pickNumberInRange(1, 5);
+  return MissionUtils.Random.pickUniqueNumbersInRange(1, 5);
 }
 
 export function randomFood(category) {
   const MENUS = FOODS[CATEGORY[category]];
-  const INDEX = MissionUtils.Random.shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8])[0];
-  const MENU = MENUS[INDEX];
+  const INDEX = MissionUtils.Random.shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  console.log(MENUS);
+  const MENU = MENUS[INDEX[0] - 1];
   return MENU;
 }

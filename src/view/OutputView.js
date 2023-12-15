@@ -10,6 +10,7 @@ const OUTPUT_MESSAGES = {
 [ 카테고리 | ${CATEGORY.join(' | ')} ]`;
   },
   result: (name, menu) => `[ ${name} | ${menu.join(' | ')} ]`,
+  end: '추천을 완료했습니다.',
 };
 
 const OutputView = {
@@ -21,6 +22,10 @@ const OutputView = {
   },
   printResults(name, menu) {
     this.print(OUTPUT_MESSAGES.result(name, menu));
+  },
+
+  printResultEnd() {
+    this.print(OUTPUT_MESSAGES.end);
   },
 
   print(string) {

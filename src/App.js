@@ -44,21 +44,20 @@ class App {
   }
 
   handleEatFood() {
-    while (this.#menuCategorys.length <= 5) {
+    while (this.#menuCategorys.length < 5) {
       const CATEGORY = this.#pickNotDuplicateCategory();
       this.#menuCategorys.push(CATEGORY);
-
-      this.#coachs.forEach((coach) => {
-        this.loofRandomFood(coach, CATEGORY);
-      });
     }
+    this.#coachs.forEach((coach) => {
+      this.loofRandomFood(coach, this.#menuCategorys);
+    });
   }
 
   #pickNotDuplicateCategory() {
     const CATEGORY = randomPickCategory();
     let cnt = 0;
     this.#menuCategorys.forEach((category) => {
-      if (category === CATEGORY) cnt += 1;
+      if (CATEGORY === category) cnt += 1;
     });
 
     if (cnt > 1) {
@@ -67,12 +66,18 @@ class App {
     return CATEGORY;
   }
 
-  loofRandomFood(coach, category) {
-    let isContinue = true;
-    while (isContinue) {
+  loofRandomFood(coach, categorys) {
+    categorys.forEach((category) => {
+      this.#setRandomFood(coach, category);
+    });
+  }
+
+  #setRandomFood(coach, category) {
+    while (true) {
       const MENU = randomFood(category);
+      console.log(MENU);
       const OK = coach.setEatFood(MENU);
-      isContinue = !OK;
+      if (OK) break;
     }
   }
 
@@ -83,6 +88,7 @@ class App {
       const MENUS = coach.getMenu();
       OutputView.printResults(NAME, MENUS);
     });
+    OutputView.printResultEnd();
   }
 }
 

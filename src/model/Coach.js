@@ -41,8 +41,14 @@ class Coach {
   }
 
   setEatFood(menu) {
-    if (this.#dontEatfoods && this.#dontEatfoods.includes(menu)) return false;
-    if (this.#eatMenus.includes(menu)) return false;
+    if (this.#dontEatfoods.includes(menu)) {
+      console.log(this.#dontEatfoods, menu);
+      return false;
+    }
+    if (this.#eatMenus.includes(menu)) {
+      console.log(this.#eatMenus, menu);
+      return false;
+    }
 
     this.#eatMenus.push(menu);
     return true;
